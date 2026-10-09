@@ -27,11 +27,18 @@ Statik sayt (build addımı yoxdur). Dillər: AZ / EN / RU. Ünvan: https://aine
 - Bələdçi kartları: `<section id="guides">`; mətnlər `ui`-da `g1t..g6d` açarlarıdır.
 - `sitemap.xml`-də `lastmod`-u kontent dəyişəndə yenilə.
 
-## 01 Kadr bələdçisini aktivləşdirmək
+## 01 Kadr bələdçisi — backend ilə tutuşdurulub (09.10.2026)
 
-Kart hazırda "Tezliklə" göstərir, çünki bələdçidəki gəlir vergisi cədvəli və Keys 1 hesablaması backend kodu ilə uyğun deyil (mühasib təsdiqi gözlənilir). Düzəldilmiş PDF-i `guides/01-kadr-emekhaqqi.pdf` adı ilə əlavə et və `index.html`-də 1-ci kartdakı
-`<span class="outline-btn guide-soon" aria-disabled="true" data-t="guideSoon">Tezliklə</span>` sətrini
-`<a class="outline-btn" href="guides/01-kadr-emekhaqqi.pdf" target="_blank" rel="noopener" data-t="guideOpen">PDF-ə bax ↗</a>` ilə əvəz et.
+Kart aktivdir (`guides/01-kadr-emekhaqqi.pdf`). Əvvəlki PDF-dəki rəqəmlər ERP kodu ilə uyğun deyildi; 4 səhifə düzəldilib (qalan 13 səhifə toxunulmayıb):
+
+| Səh. | Nə səhv idi | İndi (mənbə: ERP `payroll.service.ts`, `seed.ts` → `TaxRateConfig`) |
+|---|---|---|
+| 2 | Mündəricatda səhifə nömrələri 3-25 idi (PDF 17 səhifədir), mövcud olmayan bölmələr vardı (2.3 T-1/T-6/T-8, 2.5, 5.2, 6.3, Keys 3) | Real başlıqlar və real səhifələr |
+| 13 | Gəlir vergisi "8000 ₼-dək 0%"; İTS "8000-dən yuxarı 1%"; işəgötürən DSMF-in 8000-dən yuxarı 11% pilləsi yox | Baza `Gross − 200`; 2500-dək 3% (2027: 5%, 2028: 7%), 2500-8000: 75 + 10%, 8000+: 625 + 14%. İTS: ilk 2500 → 2%, qalanı 0.5%. DSMF işəgötürən: 22% / 44 + 15% / 1214 + 11% |
+| 14 | Kt 522.1/522.2/522.3 (hesablar planında yoxdur), maya zənciri "Dt 204.1 / Kt 771" | Kt 522; Dt 202 / Kt 771.x → Dt 204.1 / Kt 202 (`mrp.service.ts`). 771.1 seçimi T-1 əmrindəki «Xərc Hesabı» ilədir (defolt 721). Keys 1-in provodka cədvəli əlavə olunub |
+| 17 | Keys 1: Net 1,414.00 ₼ (gəlir vergisi 0%); FAQ 1: "sistem 721-i bloklayır" | Net **1,372.00 ₼** (gəlir vergisi 42.00); sistem bloklamır — xərc kartdakı hesaba gedir |
+
+Yoxlama: Şəkil 4.2-dəki ekran (2027-08 dövrü, ilk pillə 5%) eyni düsturla 1,344.00 / 1,261.50 / 849.00 verir — ekrandakı rəqəmlərlə üst-üstə düşür. Mühasibin təsdiqlədiyi 1,000 ₼ → 865.00 ₼ nümunəsi səh. 14-dədir.
 
 ## Qeydlər
 
