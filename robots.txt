@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /guides/
 
 Sitemap: https://aineroerp.online/sitemap.xml
